@@ -33,3 +33,34 @@ var time = 6;
 
 var interest = (principal * rate * time) / 100;
 console.log(interest);
+
+// Part 4
+
+var a = 30;
+var b = 100;
+
+console.log("Before swap:");
+console.log("a =", a);
+console.log("b =", b);
+
+// Swapping the values without a third variable
+a = a + b;
+b = a - b;
+a = a - b;
+
+console.log("After swap:");
+console.log("a =", a);
+console.log("b =", b);
+
+// Part 5
+
+var radius = 5;
+
+var circleArea = (3.14 * radius) ** 2;
+console.log(circleArea);
+
+var length = 200;
+var width = 500;
+
+var perOfRectangle = 2 * (length + width);
+console.log(perOfRectangle);
