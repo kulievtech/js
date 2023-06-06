@@ -1,0 +1,12 @@
+var name = "John Smith";
+var age = 35;
+var citOfResidence = "Madrid";
+var hobby = "playing soccer";
+var favoriteFood = "chicken alfredo";
+var favoriteColor = "black";
+var favoriteMovies = "Fast and Furious";
+var favoriteSong = "Candy Shop by 50 cents";
+var favoriteSport = "soccer";
+var dreamTravelDestination = "Italy";
+var favoriteAnimal = "dog";
+var favoriteSeason = "summer";
