@@ -173,3 +173,9 @@ var arr2 = [6, 7, 8, 9];
 console.log(combineArrays(arr1, arr2));
 
 // part 2
+
+function reverseOrder(arr) {
+    return arr.reverse();
+}
+
+console.log(reverseOrder(["Alex", "John", "Smith"]));
