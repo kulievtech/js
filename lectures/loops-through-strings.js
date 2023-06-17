@@ -103,7 +103,6 @@ console.log(doubleVowels("hello"));
 // Explanation: The function slices the string 'javascript' starting from the first vowel 'a' to its end, resulting in the new string 'avascript'.
 
 function sliceFromFirstVowel(str) {
-    var result = "";
     var vowels = "aeiou";
     for (var i = 0; i < str.length; i++) {
         var char = str[i];
