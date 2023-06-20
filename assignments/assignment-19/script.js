@@ -54,9 +54,26 @@ console.log(splitSentenceIntoWords("The quick brown fox")); // Output: ["The", "
 //Example Output: "firstName"
 
 function createCamelCase(str) {
-    let result = str.split(" ").join("").toLowerCase();
-    return result;
+    let strParts = str.split(" ");
+    let firstPart = strParts[0];
+    let secondPart = strParts[1];
+
+    return (
+        firstPart.toLowerCase() +
+        secondPart[0].toUpperCase() +
+        secondPart.slice(1).toLowerCase()
+    );
 }
+
+// function createCamelCase(str) {
+//     let strParts = str.split(" "); //["Hello","world"]
+//     strParts[0] = strParts[0].toLowerCase();
+//     strParts[1] =
+//         strParts[1][0].toUpperCase() + strParts[1].slice(1).toLowerCase();
+//     console.log(strParts);
+
+//     return strParts.join("");
+// }
 
 console.log(createCamelCase("Hello world"));
 
@@ -84,11 +101,13 @@ console.log(splitAndReverse("one-two-three", "-")); // Output: "three-two-one"
 //Example Output: "OpenAI_GPT-4_rocks"
 
 function replaceSpacesWithUnderscore(str) {
-    let result = str.replace(" ", "_"); // string to string by replacing space with underscore
+    // let result = str.replaceAll(" ", "_"); // string to string by replacing space with underscore
+    // return result;
+    let result = str.split(" ").join("_");
     return result;
 }
 
-console.log(replaceSpacesWithUnderscore("Hello world")); // output: "Hello_world"
+console.log(replaceSpacesWithUnderscore("Hello world again")); // output: "Hello_world"
 
 // part 7 (HARD)
 
@@ -98,14 +117,13 @@ console.log(replaceSpacesWithUnderscore("Hello world")); // output: "Hello_world
 //Example Input: ("red,green,blue", [",", "e"])
 //Example Output: ["r", "d", "gr", "", "n", "blu", ""]
 
-function splitByMultipleCharacters(str, characters) {
-    let result = "";
-    for (let i = 0; i < str.length; i++) {
-        if (characters.includes(str[i])) {
-            result = str.split(" ");
-        }
+function splitByMultipleCharacters(str, chars) {
+    for (let i = 0; i < chars.length; i++) {
+        let char = chars[i];
+
+        str = str.split(char).join("%");
     }
-    return result;
+    return str.split("%");
 }
 
 console.log(splitByMultipleCharacters("apple-orange-banana", ["-", "a"]));
@@ -150,6 +168,31 @@ console.log(swapFirstAndLastName("John Doe")); // Output: "Doe, John"
 //Example Input: "OpenAI is awesome"
 //Example Output: "#OpenAIIIsAwesome"
 
-// function createHashtag(str) {
-//     let capitalize =
-// }
+function createHashtag(str) {
+    let words = str.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+        words[i] = word[0].toUpperCase() + word.slice(1);
+    }
+    return "#" + words.join("");
+}
+
+console.log(createHashtag("hello world"));
+console.log(createHashtag("OpenAI is awesome"));
+
+// or another way to write
+
+function createHashtag(str) {
+    let arr = str.split(" ");
+    let arrWithHash = ["#"];
+    for (let i = 0; i < arr.length; i++) {
+        let word = arr[i];
+        let capitalizedWord = word[0].toUpperCase() + word.slice(1);
+        arrWithHash.push(capitalizedWord);
+    }
+    return arrWithHash.join("");
+}
+
+console.log(createHashtag("hello world"));
+console.log(createHashtag("OpenAI is awesome"));
