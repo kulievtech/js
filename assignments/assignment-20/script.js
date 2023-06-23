@@ -1,71 +1,117 @@
-// function isValidEmail(email) {
-//     let mainArr = [];
-//     if (email.includes("@")) {
-//         mainArr = email.split("@");
-//     }
-//     let domainArr = [];
-//     if (mainArr[1].includes(".")) {
-//         domainArr = mainArr[1].split(".");
-//     }
-//     let countAtSign = 0;
-//     if (email.includes("@")) {
-//         countAtSign = countAtSign + 1;
-//     }
-//     if (countAtSign !== 1) {
-//         return false;
-//     }
-//     if (email.startsWith(".", "_") || email.endsWith(".", "_")) {
-//         return false;
-//     }
-//     let countDotSign = 0;
-//     if(domainArr)
-// }
-
-// console.log(isValidEmail("helloworld123@gmail.com"));
-
 function isValidEmail(email) {
-    // Check if the email string contains exactly one "@" symbol. If not, return false.
-    if (email.split("@").length !== 2) {
+    var emailParts = email.split("@");
+    var alphabet = "abcdefghijklmnopqrstuvwxyz";
+    var numbers = "1234567890";
+    var allowedChars = "._";
+
+    var username = emailParts[0];
+    var domain = emailParts[1];
+
+    if (emailParts.length !== 2) {
         return false;
     }
 
-    // Split the email string into username and domain.
-    var parts = email.split("@");
-    var username = parts[0];
-    var domain = parts[1];
-
-    // Perform necessary checks on the username.
     if (
-        !/^[a-zA-Z0-9._]+$/.test(username) ||
-        username.startsWith(".") ||
-        username.endsWith(".") ||
-        username.startsWith("_") ||
-        username.endsWith("_") ||
-        username.includes("..") ||
-        username.includes("__")
+        username[0] === "." ||
+        username[0] === "_" ||
+        username[username.length - 1] === "." ||
+        username[username.length - 1] === "_"
     ) {
         return false;
     }
 
-    // Check if the domain string contains exactly one "." symbol. If not, return false.
-    if (domain.split(".").length !== 2) {
-        return false;
+    for (var i = 0; i < username.length; i++) {
+        var char = username[i];
+        if (
+            !alphabet.includes(char.toLowerCase()) &&
+            !numbers.includes(char) &&
+            !allowedChars.includes(char)
+        ) {
+            return false;
+        }
     }
 
-    // Split the domain into domain name and domain extension.
+    for (var i = 0; i < username.length - 1; i++) {
+        var currentChar = username[i];
+        var nextChar = username[i + 1];
+        if (
+            allowedChars.includes(currentChar) &&
+            allowedChars.includes(nextChar)
+        ) {
+            return false;
+        }
+    }
+
     var domainParts = domain.split(".");
-    var domainName = domainParts[0];
-    var domainExtension = domainParts[1];
+    if (domainParts.length !== 2) {
+        return false;
+    }
 
-    // Perform necessary checks on the domain.
     if (
-        !/^[a-zA-Z]+$/.test(domainName) ||
-        !/^[a-zA-Z]+$/.test(domainExtension)
+        domainParts[0].length < 1 ||
+        domainParts[1].length < 2 ||
+        domainParts[1].length > 3
     ) {
         return false;
+    }
+
+    var domainPartWithoutDot = domainParts.join("");
+    for (var i = 0; i < domainPartWithoutDot.length; i++) {
+        var char = domainPartWithoutDot[i];
+        if (!alphabet.includes(char.toLowerCase())) {
+            return false;
+        }
     }
 
     return true;
 }
 
-console.log(isValidEmail("ello123@gmail.com"));
+// Regular and valid email
+console.log(isValidEmail("john.doe@example.com") === true); // Should print: true
+
+// Valid email with numbers in username
+console.log(isValidEmail("john2.doe3@example.com") === true); // Should print: true
+
+// Valid email with underscore in username
+console.log(isValidEmail("john_doe@example.com") === true); // Should print: true
+
+// Valid email with capital letters
+console.log(isValidEmail("John.Doe@Example.com") === true); // Should print: true
+
+// Test for an email with three-letter domain extension
+console.log(isValidEmail("john.doe@example.net") === true); // Should print: true
+
+// Test for an email with two-letter domain extension
+console.log(isValidEmail("john.doe@example.co") === true); // Should print: true
+// Test for an email with one letter domain name
+console.log(isValidEmail("john@d.com") === true); // Should print: true
+
+// Test for an email with no "@" symbol:
+console.log(isValidEmail("johndoexample.com") === false); // Should print: true
+
+// Test for an email with multiple "@" symbols:
+console.log(isValidEmail("john@doe@example.com") === false); // Should print: true
+
+// Test for an email where username starts or ends with a dot or an underscore:
+console.log(isValidEmail(".john@doe.com") === false); // Should print: true
+console.log(isValidEmail("john.@doe.com") === false); // Should print: true
+console.log(isValidEmail("_john@doe.com") === false); // Should print: true
+console.log(isValidEmail("john_@doe.com") === false); // Should print: true
+
+// Test for an email where username has adjacent dots or underscores:
+console.log(isValidEmail("john..doe@example.com") === false); // Should print: true
+console.log(isValidEmail("john__doe@example.com") === false); // Should print: true
+console.log(isValidEmail("john._doe@example.com") === false); // Should print: true
+console.log(isValidEmail("john_.doe@example.com") === false); // Should print: true
+
+// Test for an email where domain does not have exactly one "." character:
+console.log(isValidEmail("john@doecom") === false); // Should print: true
+console.log(isValidEmail("john@doe.com.com") === false); // Should print: true
+
+// Test for an email where domain name or extension is not of valid length:
+console.log(isValidEmail("john@doe.c") === false); // Should print: true
+console.log(isValidEmail("john@doe.comm") === false); // Should print: true
+
+// Test for an email where domain name or extension contains invalid characters:
+console.log(isValidEmail("john@do3.com") === false); // Should print: true
+console.log(isValidEmail("john@doe.c_m") === false); // Should print: true
