@@ -117,6 +117,20 @@ console.log(lengthChecker(array, 5));
  * should return [{cat: 9}, {window: 36}, {prop: 16}]
  */
 
+let something = ["cat", "window", "prop"];
+
+function arrObj(array) {
+    let newArray = [];
+    for (let i = 0; i < array.length; i++) {
+        let obj = {};
+        let ele = array[i];
+        obj[ele] = ele.length * ele.length;
+        newArray.push(obj);
+    }
+    return newArray;
+}
+
+console.log(arrObj(something));
 /**
  * Assignment 5: Key-Value Multiplication
  * Write a function that takes an object as an argument. In this object, keys are strings and values are also strings.
@@ -134,15 +148,26 @@ const objectCombo = {
 };
 
 function combinationOfOriginal(obj) {
-    let result = {};
+    let newObj = {};
     for (const key in obj) {
-        // `${key}${obj[key]}: ${key.length * obj[key].length}`;
-        result[`${key}${obj[key]}`] = key.length * obj[key].length;
+        newObj[key.concat(obj[key])] = key.length * obj[key].length;
     }
-    return result;
+    return newObj;
 }
 
 console.log(combinationOfOriginal(objectCombo));
+
+// or another way to write
+
+// function combinationOfOriginal(obj) {
+//     let result = {};
+//     for (const key in obj) {
+//         result[`${key}${obj[key]}`] = key.length * obj[key].length;
+//     }
+//     return result;
+// }
+
+// console.log(combinationOfOriginal(objectCombo));
 
 /**
  * Assignment 6: Array Operations
@@ -157,3 +182,23 @@ console.log(combinationOfOriginal(objectCombo));
  * arrayOperations([1, 2, 3], [4, 5, 6])
  * should return {added: [5, 7, 9], multiplied: [4, 10, 18]}
  */
+
+function arrayOperations(arr1, arr2) {
+    let obj = {};
+    let added = [];
+    let multiplied = [];
+    for (let i = 0; i < arr1.length; i++) {
+        added.push(arr1[i] + arr2[i]);
+    }
+    for (let i = 0; i < arr2.length; i++) {
+        multiplied.push(arr1[i] * arr2[i]);
+    }
+    obj["added"] = added;
+    obj["multiplied"] = multiplied;
+    return obj;
+}
+
+let array1 = [1, 2, 3];
+let array2 = [4, 5, 6];
+
+console.log(arrayOperations(array1, array2));
