@@ -45,13 +45,41 @@ function sumOfPairs(array, targetSum) {
 
 console.log(sumOfPairs([1, 2, 3, 4, 5], 5)); // output: [ [ 1, 4 ], [ 2, 3 ] ]
 
-// 4. Check Prime: Design a function that receives a number as input and checks if it is a prime number. This task will require a loop to check all numbers up to the square root of the input number to see if they divide the input number evenly.
+// 4. Check Prime: Design a function that receives a number as input and checks if it is a prime number. This task will require a loop to check all numbers up to the number the input number to see if they divide the input number evenly.
 
-function isPrimeNumber(number) {}
+function isPrimeNumber(number) {
+    if (number < 2) {
+        return false;
+    }
+    for (let i = 2; i < number; i++) {
+        if (number % i === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+console.log(isPrimeNumber(11));
 
 // 5. Prime Range: Generate a function that accepts a range (two numbers) as input and returns an object. The object should contain the keys primes (an array of all prime numbers in the range) and count (the total number of prime numbers in the range). This task will require nested loops; an outer loop to iterate through the range, and an inner loop (within the checkPrime function) to check if a number is prime.
 
-function primeRange(num1, num2) {}
+function primeRange(start, end) {
+    let primes = [];
+    let count = primes.length;
+    let obj = {};
+
+    for (let i = start; i <= end; i++) {
+        if (isPrimeNumber(i)) {
+            primes.push(i);
+            count++;
+        }
+    }
+    obj.primes = primes;
+    obj.count = count;
+    return obj;
+}
+
+console.log(primeRange(10, 20));
 
 // 6. All Substrings: Write a function that takes a string as an input and returns an array of all its substrings.
 
